@@ -1,14 +1,19 @@
-import './App.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import LandingPage from './Component/view/LandingPage';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import LandingPage from './component/view/LandingPage/LandingPage';
+import LoginPage from './component/view/LoginPage/LoginPage';
+import RegisterPage from './component/view/RegisterPage/RegisterPage';
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<LandingPage/>}/>
-      </Routes>
-    </BrowserRouter>
+    <Router>
+      <div>
+        <Routes>
+          <Route exact path="/api/users" element={<LandingPage/>}/>
+          <Route exact path="/api/users/login" element={<LoginPage/>}/>
+          <Route exact path="/api/users/register" element={<RegisterPage/>}/>
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
