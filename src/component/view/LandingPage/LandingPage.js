@@ -4,7 +4,6 @@ import axios from 'axios';
 function LandingPage() {
 
   useEffect(() => {
-    console.log(222)
     axios.get('/api/users')
     .then(response => console.log(response))
   }, []);

@@ -89,8 +89,7 @@ app.get('/api/users/logout', auth, (req, res) => {
 })
 
 app.get('/api/users', (req, res) => {
-    console.log(222)
-    res.send("안녕하세요 ~  ")
+    res.send("랜딩페이지당")
 })
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
