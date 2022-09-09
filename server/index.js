@@ -88,8 +88,8 @@ app.get('/api/users/logout', auth, (req, res) => {
     }) 
 })
 
-app.get('/api/users', (req, res) => {
-    res.send("랜딩페이지당")
+app.get('/api/hello', (req, res) => {
+    res.send('안뇽')
 })
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
