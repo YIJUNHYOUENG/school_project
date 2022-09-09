@@ -21,7 +21,7 @@ mongoose.connect(config.mongoURI)
     
 app.get('/', (req, res) => res.send('Hello World!'))
 
-app.post('/api/users/register', (req, res) => {
+app.post('/register', (req, res) => {
 
     // 회원 가입 할 때 필요한 정보들을 client에서 가져오면
     // 그것들은 db에 넣어준다.
@@ -35,7 +35,7 @@ app.post('/api/users/register', (req, res) => {
 
 })
 
-app.post('/api/users/login', (req, res) => {
+app.post('/login', (req, res) => {
 
     // 요청된 이메일을 db에 있는지 찾는다.
     User.findOne({ email: req.body.email }, (err, user) => {
@@ -63,7 +63,7 @@ app.post('/api/users/login', (req, res) => {
     })
 })
 
-app.get('/api/users/auth', auth, (req, res) => {
+app.get('/auth', auth, (req, res) => {
     
     // 여기까지 미들웨어를 통과했다는 얘기는 authentication 이 True 라는 말
     res.status(200).json({
@@ -78,7 +78,7 @@ app.get('/api/users/auth', auth, (req, res) => {
     })
 })
 
-app.get('/api/users/logout', auth, (req, res) => {
+app.get('/logout', auth, (req, res) => {
 
     User.findOneAndUpdate({ _id: req.user._id }, 
     { token: "" }
@@ -86,10 +86,6 @@ app.get('/api/users/logout', auth, (req, res) => {
         if(err) return res.json({ success: false, err });
         return res.status(200).send({ success: true })
     }) 
-})
-
-app.get('/api/hello', (req, res) => {
-    res.send('안뇽')
 })
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
