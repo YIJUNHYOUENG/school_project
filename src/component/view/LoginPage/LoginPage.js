@@ -1,8 +1,10 @@
-import axios from 'axios';
-import { response } from 'express';
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux';
+import { loginUser } from "../../../_action/user_action";
 
 function LoginPage() {
+
+  const dispatch = useDispatch();
 
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
@@ -18,16 +20,12 @@ function LoginPage() {
   const onSubmitHandler = event => {
     event.preventDefault();
 
-    console.log('Email', Email)
-    console.log('Password', Password)
-
     let body = {
       email: Email,
       Password: Password
     }
 
-    axios.post('/login', body)
-    .then(response)
+    dispatch(loginUser(body));
   }
 
   return (
