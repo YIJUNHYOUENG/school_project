@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { loginUser } from "../../../_action/user_action";
+import { useNavigate } from 'react-router-dom';
 
-function LoginPage() {
+function LoginPage(props) {
 
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [Email, setEmail] = useState("");
@@ -22,10 +24,18 @@ function LoginPage() {
 
     let body = {
       email: Email,
-      Password: Password
+      password: Password
     }
 
-    dispatch(loginUser(body));
+    dispatch(loginUser(body))
+    .then(response => {
+      console.log(response)
+      if(response.payload.loginSuccess) {
+        navigate('/');
+      } else {
+        alert("Error")
+      }
+    })
   }
 
   return (
@@ -36,13 +46,13 @@ function LoginPage() {
       <form style={{ display: 'flex', flexDirection: 'column' }}
         onSubmit={onSubmitHandler}
       >
-        <lobel>Email</lobel>
+        <label>Email</label>
         <input type="email" value={Email} onChange={onEmailHandler}/>
-        <lobel>Password</lobel>
+        <label>Password</label>
         <input type="password" value={Password} onChange={onPasswordHandler}/>
         <br/>
         <button>
-          Login
+          LoginPage
         </button>
       </form>
     </div>

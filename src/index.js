@@ -1,8 +1,8 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-// import * as ServiceWorker from './serviceWorker';
+import * as ServiceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
 import { applyMiddleware, createStore } from 'redux';
 import ReduxThunk from "redux-thunk";
@@ -10,8 +10,9 @@ import Reducer from "./_reducers";
 import promiseMiddleware from 'redux-promise';
 
 const createStoreWidthMiddleware = applyMiddleware(promiseMiddleware, ReduxThunk) (createStore)
+const root = ReactDOM.createRoot(document.getElementById('root'));
 
-ReactDOM.render(
+root.render(
   <Provider
     store={createStoreWidthMiddleware(Reducer,
       window.__REDUX_DEVTOOLS_EXTENSION__ &&
@@ -19,7 +20,6 @@ ReactDOM.render(
       )}>
     <App />
   </Provider>
-  , document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function
