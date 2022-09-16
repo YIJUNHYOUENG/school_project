@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { loginUser } from "../../../_action/user_action";
 import { useNavigate } from 'react-router-dom';
+import { registerUser } from '../../../_action/user_action';
 
-function RegisterPage() {
+function RegisterPage(props) {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -32,18 +32,22 @@ function RegisterPage() {
   const onSubmitHandler = event => {
     event.preventDefault();
 
-    let body = {
-      email: Email,
-      password: Password
+    if(Password !== ConfirmPassword) {
+      return alert('비밀번호와 비밀번호 확인은 같아야 합니다.')
     }
 
-    dispatch(loginUser(body))
+    let body = {
+      email: Email,
+      password: Password,
+      name: Name
+    }
+
+    dispatch( registerUser(body))
     .then(response => {
-      console.log(response)
-      if(response.payload.loginSuccess) {
-        navigate('/');
+      if(response.payload.success) {
+        navigate('/login');
       } else {
-        alert("Error")
+        alert("Fail to sign up")
       }
     })
   }
@@ -69,7 +73,7 @@ function RegisterPage() {
         <input type="password" value={Password} onChange={onPasswordHandler}/>
         <br/>
         <button>
-          LoginPage
+          회원가입
         </button>
       </form>
     </div>
