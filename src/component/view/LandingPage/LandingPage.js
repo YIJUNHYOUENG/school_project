@@ -1,15 +1,10 @@
 import React, { useEffect } from 'react'
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 function LandingPage() {
 
   const navigate = useNavigate();
-
-  useEffect(() => {
-    axios.get('/api/hello')
-    .then(response => console.log(response))
-  }, []);
 
   const onClickHandler = () => {
     axios.get('/logout')
@@ -23,11 +18,19 @@ function LandingPage() {
   }
 
   return (
-    <div style={{
-      display: "flex", justifyContent: 'center', alignItems: "center",
-      width: '100%', height: '100vh'
-    }}>
-      <h2>시작페이지</h2>
+    <div>
+      <header>
+        <div>
+          {/* logo */}
+        </div>
+
+        <nav>
+          <ul>
+            <li><Link to="/register">회원가입</Link></li>
+            <li><Link to="/login">로그인</Link></li>
+          </ul>
+        </nav>
+      </header>
 
       <button onClick={onClickHandler}>
         로그아웃
