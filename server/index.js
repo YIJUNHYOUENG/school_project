@@ -19,8 +19,9 @@ mongoose.connect(config.mongoURI)
 .then(() => console.log('MongoDB Connected...'))
 .catch(err => console.log(err))
     
-app.post('/', (req, res) => {
-
+app.get('/', (req, res) => {
+    const user = new User(req.body)
+    res.status(200).json({ loginTrue: true })
 })
 
 app.post('/register', (req, res) => {

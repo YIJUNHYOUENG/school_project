@@ -31,7 +31,7 @@ function LoginPage(props) {
     .then(response => {
       console.log(response)
       if(response.payload.loginSuccess) {
-        navigate('/');
+        navigate('/', { state: { value: true } });
       } else {
         alert("Error")
       }
