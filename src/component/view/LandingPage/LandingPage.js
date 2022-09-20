@@ -5,17 +5,21 @@ import './LandingPage.css';
 
 function LandingPage() { 
 
-  let loginCheck;
-  let loc = "/login"
-
   const [Check, setCheck] = useState(false);
+  const [Location, setLocation] = useState("/");
+  const [Login, setLogin] = useState("로그인");
 
-  const navigate = useNavigate();
   const location = useLocation();
 
-  // useEffect(() => {
-  //   LoginCheck()
-  // }, []);
+  useEffect(() => {
+    if(location.state !== null || Check === true) {
+      setCheck(location.state.value);
+    } else {
+      setCheck(false);
+    }
+
+    LoginCheck();
+  }, []);
 
   const onClickHandler = () => {
     axios.get('/logout')
@@ -27,19 +31,15 @@ function LandingPage() {
   }
 
   const LoginCheck = () => {
-    if(location.state !== null || location.state.value) {
-      setCheck(location.state.value);
-    }
     if(Check) {
-      loginCheck = "로그아웃";
+      setLogin("로그아웃");
     } else {
-      loginCheck = "로그인";
+      setLogin("로그인");
     }
+    console.log(Login);
 
-    return loginCheck;
+    return Login;
   }
-
-
 
   return (
     <div className='layout'>
@@ -53,15 +53,16 @@ function LandingPage() {
           <nav className='navigation'>
             <ul>
               <li><Link to="/register">회원가입</Link></li>
-              <li><Link to={loc} onClick={() => {
+              <li><Link to={Location} onClick={() => {
                 let name = LoginCheck();
-                if(name==="로그아웃") {
+                if(name==="로그인") { 
+                  setLocation("/login");
+                } else if(name==="로그아웃") { 
                   onClickHandler();
-                  loc = "/";
-                } else if(name==="로그인") {
-                  loc = "/login";
+                  setLocation("/");
+                  window.location.replace("/");
                 }
-              }}>{LoginCheck()}</Link></li>
+              }}>{Login}</Link></li>
             </ul>
           </nav>
         </div>
